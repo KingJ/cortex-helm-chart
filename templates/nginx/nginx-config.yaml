@@ -13,9 +13,15 @@ data:
     error_log  /dev/stderr;
     pid        /tmp/nginx.pid;
     worker_rlimit_nofile 8192;
+    {{- if .Values.nginx.config.extraMain }}
+    {{ tpl .Values.nginx.config.extraMain . | nindent 4 | trim }}
+    {{- end }}
 
     events {
       worker_connections  4096;  ## Default: 1024
+      {{- if .Values.nginx.config.extraEvents }}
+      {{ tpl .Values.nginx.config.extraEvents . | nindent 6 | trim }}
+      {{- end }}
     }
 
     http {
@@ -28,6 +34,9 @@ data:
       sendfile     on;
       tcp_nopush   on;
       resolver {{ default (printf "kube-dns.kube-system.svc.%s" .Values.clusterDomain ) .Values.nginx.config.dnsResolver }};
+      {{- if .Values.nginx.config.extraHttp }}
+      {{ tpl .Values.nginx.config.extraHttp . | nindent 6 | trim }}
+      {{- end }}
 
       server { # simple reverse-proxy
         listen {{ .Values.nginx.http_listen_port }};
@@ -110,6 +119,10 @@ data:
           proxy_pass      http://{{ template "cortex.fullname" $ }}-distributor.{{ $rootDomain }}/api/v1/push;
         }
         {{- end }}
+        {{- end }}
+        {{- if .Values.nginx.config.extraServer }}
+
+        {{ tpl .Values.nginx.config.extraServer . | nindent 8 | trim }}
         {{- end }}
       }
     }

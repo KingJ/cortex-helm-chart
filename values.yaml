@@ -1128,6 +1128,14 @@ nginx:
     setHeaders: {}
     # -- (optional) List of [auth tenants](https://cortexmetrics.io/docs/guides/auth/) to set in the nginx config
     auth_orgs: []
+    # -- Extra configuration directives to inject into the main (top level) section of the NGINX configuration file
+    extraMain: ""
+    # -- Extra configuration directives to inject into the events section of the NGINX configuration file
+    extraEvents: ""
+    # -- Extra configuration directives to inject into the http section of the NGINX configuration file
+    extraHttp: ""
+    # -- Extra configuration directives to inject into the server section of the NGINX configuration file
+    extraServer: ""
   image:
     repository: nginx
     tag: 1.21

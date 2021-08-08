@@ -583,6 +583,10 @@ Kubernetes: `^1.19.0-0`
 | nginx.config.auth_orgs | list | `[]` | (optional) List of [auth tenants](https://cortexmetrics.io/docs/guides/auth/) to set in the nginx config |
 | nginx.config.client_max_body_size | string | `"1M"` |  |
 | nginx.config.dnsResolver | string | `"kube-dns.kube-system.svc.cluster.local"` |  |
+| nginx.config.extraEvents | string | `""` | Extra configuration directives to inject into the events section of the NGINX configuration file |
+| nginx.config.extraHttp | string | `""` | Extra configuration directives to inject into the http section of the NGINX configuration file |
+| nginx.config.extraMain | string | `""` | Extra configuration directives to inject into the main (top level) section of the NGINX configuration file |
+| nginx.config.extraServer | string | `""` | Extra configuration directives to inject into the server section of the NGINX configuration file |
 | nginx.config.setHeaders | object | `{}` |  |
 | nginx.containerSecurityContext.enabled | bool | `true` |  |
 | nginx.containerSecurityContext.readOnlyRootFilesystem | bool | `false` |  |
